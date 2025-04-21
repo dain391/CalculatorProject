@@ -1,9 +1,11 @@
+package entireCodebase.lv2;
+
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        ArithmeticCalculator<Double> calculator = new ArithmeticCalculator<>();
+        Calculator calculator = new Calculator();
 
         while (true) {
             double n1 = 0;
@@ -42,8 +44,7 @@ public class App {
                 }
             }
 
-            OperatorType type = OperatorType.fromChar(op);
-            double result = calculator.calculate(n1, n2, type);
+            double result = calculator.calculate(n1, n2, op);
 
             if (result == -1) {
                 System.out.println("0으로 나눌 수 없습니다.");

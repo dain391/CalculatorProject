@@ -1,15 +1,16 @@
+package entireCodebase.lv1;
+
 import java.util.Scanner;
 
-public class App {
+public class Calculator {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        ArithmeticCalculator<Double> calculator = new ArithmeticCalculator<>();
+        Scanner scanner = new Scanner(System.in);
 
         while (true) {
             double n1 = 0;
             while (true) {
                 System.out.print("\n첫 번째 숫자를 입력하세요: ");
-                String input = sc.next();
+                String input = scanner.nextLine();
                 try {
                     n1 = Double.parseDouble(input);
                     break;
@@ -18,11 +19,13 @@ public class App {
                 }
             }
 
-            char op = ' ';
+            char op;
             while (true) {
                 System.out.print("연산자(➕, ➖, ✖️, ➗)를 입력하세요: ");
-                String operator = sc.next();
+                String operator = scanner.nextLine();
+                if (operator.length() == 0) continue;
                 op = operator.charAt(0);
+
                 if (op == '+' || op == '-' || op == '*' || op == '/' || op == '➕' || op == '➖' || op == '✖' || op == '➗') {
                     break;
                 } else {
@@ -33,42 +36,46 @@ public class App {
             double n2 = 0;
             while (true) {
                 System.out.print("두 번째 숫자를 입력하세요: ");
-                String input = sc.next();
+                String input = scanner.nextLine();
                 try {
                     n2 = Double.parseDouble(input);
                     break;
                 } catch (NumberFormatException e) {
-                    System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.\n");
+                    System.out.println("잘못된 입력입니다. 숫자를 입력해 주세요.\n");
                 }
             }
 
-            OperatorType type = OperatorType.fromChar(op);
-            double result = calculator.calculate(n1, n2, type);
+            double result = 0;
+            boolean valid = true;
 
-            if (result == -1) {
-                System.out.println("0으로 나눌 수 없습니다.");
-                continue;
-            } else if (result != -2) {
+            switch (op) {
+                case '+', '➕' -> result = n1 + n2;
+                case '-', '➖' -> result = n1 - n2;
+                case '*', '✖' -> result = n1 * n2;
+                case '/', '➗' -> {
+                    if (n2 == 0) {
+                        System.out.println("0으로 나눌 수 없습니다.\n");
+                        valid = false;
+                    } else {
+                        result = n1 / n2;
+                    }
+                }
+            }
+
+            if (valid) {
                 if (result == (int) result) {
                     System.out.println("\n계산 결과: " + (int) result);
                 } else {
                     System.out.println("\n계산 결과: " + result);
                 }
-
-                System.out.print("계산 결과를 삭제하시겠습니까? ('yes' 입력 시 삭제): ");
-                String del = sc.next();
-                if (del.equals("yes")) {
-                    calculator.removeR();
-                }
             }
 
             System.out.print("계속하시겠습니까?('exit' 입력 시 종료): ");
-            String ans = sc.next();
+            String ans = scanner.nextLine();
             if (ans.equals("exit")) {
                 System.out.println("계산기를 종료합니다.");
                 break;
             }
         }
-        sc.close();
     }
 }
