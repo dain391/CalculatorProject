@@ -1,5 +1,7 @@
 package entireCodebase.lv2;
 
+import entireCodebase.lv3.OperatorType;
+
 import java.util.Scanner;
 
 public class App {
@@ -21,14 +23,16 @@ public class App {
             }
 
             char op = ' ';
+            OperatorType opEnum = null;
             while (true) {
                 System.out.print("연산자(➕, ➖, ✖️, ➗)를 입력하세요: ");
-                String operator = sc.next();
-                op = operator.charAt(0);
-                if (op == '+' || op == '-' || op == '*' || op == '/' || op == '➕' || op == '➖' || op == '✖' || op == '➗') {
+                String input = sc.next();
+                op = input.charAt(0);
+                opEnum = OperatorType.fromChar(op);
+                if (opEnum != null) {
                     break;
                 } else {
-                    System.out.println("잘못된 연산자입니다. 다시 입력해주세요.\n");
+                    System.out.println("잘못된 연산자입니다.\n");
                 }
             }
 
@@ -46,10 +50,10 @@ public class App {
 
             double result = calculator.calculate(n1, n2, op);
 
-            if (result == -1) {
+            if (Double.isNaN(result)) {
                 System.out.println("0으로 나눌 수 없습니다.");
                 continue;
-            } else if (result != -2) {
+            } else {
                 if (result == (int) result) {
                     System.out.println("\n계산 결과: " + (int) result);
                 } else {

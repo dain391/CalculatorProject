@@ -19,13 +19,13 @@ public class Calculator {
             case '/', '➗' -> {
                 if (n2 == 0) {
                     System.out.println("0으로 나눌 수 없습니다.\n");
-                    return -1;
+                    return Double.NaN;
                 } else {
                     result = n1 / n2;
                 }
             }
             default -> {
-                return -2;
+                return Double.NaN;
             }
         }
         results.add(result);
