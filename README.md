@@ -79,4 +79,8 @@
 ② double 타입의 값을 전달 받아도 연산이 수행되도록 한다.
 - [x]  `제네릭` 사용하기
 - [x]  피연산자를 여러 타입으로 받을 수 있도록 기능 확장
+
+③ 저장된 연산 결과들 중 Scanner로 입력받은 값보다 큰 결과값 들을 출력
+- [ ]  `ArithmeticCalculator` 클래스
+- [ ]  `Lambda & Stream` 활용
 </details>
